@@ -623,7 +623,7 @@ def admin():
         <p>Live SQLite records from orders, contacts, and users.</p>
       </header>
       <main>
-        <p><a href="/">Back to shop</a> &nbsp; <a href="/api/database">View raw JSON database</a> &nbsp; <button id="logout-btn">Logout</button></p>
+        <p><a href="/">Back to shop</a> &nbsp; <button id="logout-btn">Logout</button></p>
         <section class="stats">
           <div class="stat">Orders<strong>{order_count}</strong></div>
           <div class="stat">Messages<strong>{contact_count}</strong></div>
