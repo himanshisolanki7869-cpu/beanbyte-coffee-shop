@@ -1,0 +1,139 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#f4eee8;
+}
+
+/* Login Box */
+
+.login-box{
+    width:430px;
+    background:#fffaf5;
+    padding:45px;
+    border-radius:30px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.08);
+    text-align:center;
+}
+
+/* Logo */
+
+.logo{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+    margin-bottom:35px;
+}
+
+.logo img{
+    width:90px;
+    height:90px;
+    object-fit:contain;
+    mix-blend-mode:multiply;
+}
+
+/* Bean + Byte */
+
+.bean{
+    color:#3b2417;
+    font-size:40px;
+    font-weight:bold;
+    font-family:serif;
+}
+
+.byte{
+    color:#ED984C;
+    font-size:40px;
+    font-weight:bold;
+    font-family:serif;
+}
+
+/* Tagline */
+
+.tagline{
+    font-size:11px;
+    color:#8b7b70;
+    letter-spacing:1px;
+    margin-top:2px;
+}
+
+/* Heading */
+
+h1{
+    font-size:40px;
+    color:#2f1b12;
+    font-weight:500;
+    margin-bottom:10px;
+}
+
+.subtitle{
+    color:#8d7c71;
+    font-size:14px;
+    line-height:24px;
+    margin-bottom:35px;
+}
+
+/* Form */
+
+form{
+    display:flex;
+    flex-direction:column;
+}
+
+input{
+    width:100%;
+    padding:16px 20px;
+    border:2px solid #e5d7cc;
+    border-radius:50px;
+    outline:none;
+    background:transparent;
+    margin-bottom:18px;
+    font-size:15px;
+    transition:0.3s;
+}
+
+input:focus{
+    border-color:#9b5526;
+}
+
+/* Button */
+
+button{
+    width:100%;
+    padding:16px;
+    border:none;
+    border-radius:50px;
+    background:#9b5526;
+    color:white;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    background:#7c411a;
+}
+
+/* Bottom Text */
+
+.bottom-text{
+    margin-top:24px;
+    color:#7f7168;
+    font-size:14px;
+}
+
+.bottom-text a{
+    color:#9b5526;
+    text-decoration:none;
+    font-weight:600;
+}
