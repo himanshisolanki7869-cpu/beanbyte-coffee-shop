@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BeanByte Login</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body { display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #F6F0EA; padding: 20px; }
+        .login-card { background: white; padding: 36px; border-radius: 8px; box-shadow: 0 30px 60px rgba(0,0,0,0.12); width: min(420px, 100%); }
+        .login-card h1 { margin-bottom: 24px; font-size: 30px; color: #3b2417; }
+        .login-card label { display: block; margin-bottom: 8px; font-weight: 600; color: #5f4a3c; }
+        .login-card input { width: 100%; padding: 14px 16px; margin-bottom: 18px; border: 1px solid #ddd; border-radius: 8px; }
+        .login-card button { width: 100%; border: none; background: #3b2417; color: white; padding: 14px 16px; border-radius: 8px; font-size: 16px; cursor: pointer; }
+        .login-card button:hover { background: #5a341f; }
+        .message { margin-top: 16px; color: #a35a2a; min-height: 24px; }
+        .secondary-actions { display: flex; justify-content: space-between; gap: 16px; margin-top: 18px; flex-wrap: wrap; }
+        .text-link, .back-link { color: #3b2417; text-decoration: none; background: none; border: 0; padding: 0; width: auto; font: inherit; cursor: pointer; }
+        .login-card .text-link:hover { background: none; text-decoration: underline; }
+        .hidden { display: none; }
+        .hint { color: #6f5a4c; font-size: 14px; line-height: 1.5; margin: -8px 0 16px; }
+        .tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 20px; }
+        .login-card .tab-btn { background: #f6f0ea; color: #3b2417; border: 1px solid #eadfd5; }
+        .login-card .tab-btn.active { background: #3b2417; color: white; }
+    </style>
+</head>
+<body>
+    <div class="login-card">
+        <h1 id="form-title">Login to BeanByte</h1>
+        <div class="tabs" id="auth-tabs">
+            <button type="button" class="tab-btn active" id="show-login">Login</button>
+            <button type="button" class="tab-btn" id="show-signup">Sign Up</button>
+        </div>
+        <form id="login-form">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" placeholder="admin or admin@beanbyte.com" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="coffee123" required>
+
+            <button type="submit">Login</button>
+        </form>
+
+        <form id="signup-form" class="hidden">
+            <label for="signup-username">Username</label>
+            <input type="text" id="signup-username" name="username" placeholder="yourname" minlength="3" required>
+
+            <label for="signup-email">Email</label>
+            <input type="email" id="signup-email" name="email" placeholder="you@example.com" required>
+
+            <label for="signup-password">Password</label>
+            <input type="password" id="signup-password" name="password" minlength="6" required>
+
+            <button type="submit">Create Account</button>
+        </form>
+
+        <form id="forgot-form" class="hidden">
+            <p class="hint">Enter your username or email. For this demo, the reset link is shown on screen instead of being sent by email.</p>
+            <label for="forgot-identifier">Username or email</label>
+            <input type="text" id="forgot-identifier" name="identifier" placeholder="admin@beanbyte.com" required>
+
+            <button type="submit">Create Reset Link</button>
+        </form>
+
+        <form id="reset-form" class="hidden">
+            <label for="reset-token">Reset token</label>
+            <input type="text" id="reset-token" name="token" required>
+
+            <label for="new-password">New password</label>
+            <input type="password" id="new-password" name="password" minlength="6" required>
+
+            <button type="submit">Reset Password</button>
+        </form>
+
+        <div class="message" id="message"></div>
+        <div class="secondary-actions">
+            <button type="button" class="text-link" id="forgot-link">Forgot password?</button>
+            <button type="button" class="text-link hidden" id="login-link">Back to login</button>
+            <a class="back-link" href="/">Back to shop</a>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = window.location.port === '8000' ? 'http://127.0.0.1:5000' : '';
+        const loginForm = document.getElementById('login-form');
+        const signupForm = document.getElementById('signup-form');
+        const forgotForm = document.getElementById('forgot-form');
+        const resetForm = document.getElementById('reset-form');
+        const message = document.getElementById('message');
+        const formTitle = document.getElementById('form-title');
+        const forgotLink = document.getElementById('forgot-link');
+        const loginLink = document.getElementById('login-link');
+        const resetTokenInput = document.getElementById('reset-token');
+        const showLoginBtn = document.getElementById('show-login');
+        const showSignupBtn = document.getElementById('show-signup');
+        const authTabs = document.getElementById('auth-tabs');
+
+        function showMessage(text, type = 'info') {
+            message.style.color = type === 'error' ? '#e74c3c' : '#2b1b14';
+            message.innerHTML = text;
+        }
+
+        function showForm(formName) {
+            loginForm.classList.toggle('hidden', formName !== 'login');
+            signupForm.classList.toggle('hidden', formName !== 'signup');
+            forgotForm.classList.toggle('hidden', formName !== 'forgot');
+            resetForm.classList.toggle('hidden', formName !== 'reset');
+            forgotLink.classList.toggle('hidden', formName !== 'login');
+            loginLink.classList.toggle('hidden', formName === 'login');
+            authTabs.classList.toggle('hidden', formName === 'forgot' || formName === 'reset');
+            showLoginBtn.classList.toggle('active', formName === 'login');
+            showSignupBtn.classList.toggle('active', formName === 'signup');
+            message.textContent = '';
+
+            if (formName === 'forgot') formTitle.textContent = 'Forgot Password';
+            if (formName === 'reset') formTitle.textContent = 'Reset Password';
+            if (formName === 'login') formTitle.textContent = 'Login to BeanByte';
+            if (formName === 'signup') formTitle.textContent = 'Create Account';
+        }
+
+        forgotLink.addEventListener('click', () => showForm('forgot'));
+        loginLink.addEventListener('click', () => showForm('login'));
+        showLoginBtn.addEventListener('click', () => showForm('login'));
+        showSignupBtn.addEventListener('click', () => showForm('signup'));
+
+        const params = new URLSearchParams(window.location.search);
+        if (params.has('reset_token')) {
+            resetTokenInput.value = params.get('reset_token');
+            showForm('reset');
+        }
+
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            message.textContent = '';
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+
+            try {
+                const response = await fetch(`${API_BASE}/api/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+                const result = await response.json();
+                if (response.ok) {
+                    if (result.user && result.user.is_owner) {
+                        showMessage('Owner login successful. Opening database dashboard...');
+                        window.setTimeout(() => window.location.href = '/admin', 600);
+                    } else {
+                        showMessage('Login successful. You can continue ordering from the menu.');
+                        window.setTimeout(() => window.location.href = '/menu.html', 800);
+                    }
+                } else {
+                    showMessage(result.error || 'Login failed.', 'error');
+                }
+            } catch (err) {
+                showMessage('Unable to reach backend. Make sure Flask is running on port 5000.', 'error');
+                console.error(err);
+            }
+        });
+
+        signupForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const username = document.getElementById('signup-username').value.trim();
+            const email = document.getElementById('signup-email').value.trim();
+            const password = document.getElementById('signup-password').value;
+
+            try {
+                const response = await fetch(`${API_BASE}/api/signup`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, email, password })
+                });
+                const result = await response.json();
+                if (response.ok) {
+                    showMessage('Account created. Taking you to the menu...');
+                    window.setTimeout(() => window.location.href = '/menu.html', 800);
+                } else {
+                    showMessage(result.error || 'Signup failed.', 'error');
+                }
+            } catch (err) {
+                showMessage('Unable to reach backend. Make sure Flask is running on port 5000.', 'error');
+                console.error(err);
+            }
+        });
+
+        forgotForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const identifier = document.getElementById('forgot-identifier').value.trim();
+
+            try {
+                const response = await fetch(`${API_BASE}/api/forgot-password`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: identifier })
+                });
+                const result = await response.json();
+
+                if (!response.ok) {
+                    showMessage(result.error || 'Unable to create reset link.', 'error');
+                    return;
+                }
+
+                if (result.reset_token) {
+                    resetTokenInput.value = result.reset_token;
+                    showForm('reset');
+                    showMessage(`Reset token created. Use this token now: <strong>${result.reset_token}</strong>`);
+                } else {
+                    showMessage(result.message);
+                }
+            } catch (err) {
+                showMessage('Unable to reach backend. Make sure Flask is running on port 5000.', 'error');
+                console.error(err);
+            }
+        });
+
+        resetForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const token = resetTokenInput.value.trim();
+            const password = document.getElementById('new-password').value;
+
+            try {
+                const response = await fetch(`${API_BASE}/api/reset-password`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ token, password })
+                });
+                const result = await response.json();
+
+                if (response.ok) {
+                    showForm('login');
+                    showMessage(result.message);
+                    resetForm.reset();
+                } else {
+                    showMessage(result.error || 'Unable to reset password.', 'error');
+                }
+            } catch (err) {
+                showMessage('Unable to reach backend. Make sure Flask is running on port 5000.', 'error');
+                console.error(err);
+            }
+        });
+    </script>
+</body>
+</html>

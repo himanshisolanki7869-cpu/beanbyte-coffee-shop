@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu - BeanByte Coffee Shop</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+<header>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="logo.png" alt="BeanByte Logo">
+            <h2><span class="bean">Bean</span><span class="byte">Byte</span><p class="tagline">Brewed for you</p></h2>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="menu.html">Menu</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <ul class="nav-actions">
+            <li><a href="#cart" id="cart-button"><i class="fa-solid fa-cart-shopping"></i><span id="cart-count">0</span></a></li>
+            <li><a href="#" id="place-order-btn">Order Now</a></li>
+        </ul>
+    </nav>
+</header>
+
+<section class="cart-panel" id="cart-panel">
+  <div class="cart-panel-content">
+    <button class="close-cart-btn" id="close-cart-btn">&times;</button>
+    <h2>Your Cart</h2>
+    <div id="cart-items" class="cart-items"></div>
+    <form class="checkout-form" id="checkout-form">
+      <div class="checkout-grid">
+        <label>
+          Name
+          <input type="text" id="customer-name" placeholder="Your name" required>
+        </label>
+        <label>
+          Phone
+          <input type="tel" id="customer-phone" placeholder="+91 98765 43210" required>
+        </label>
+      </div>
+      <label>
+        Order type
+        <select id="fulfillment">
+          <option value="pickup">Pickup</option>
+          <option value="dine-in">Dine-in</option>
+        </select>
+      </label>
+    </form>
+    <div class="cart-footer">
+      <div class="cart-summary">Total: &#8377;<span id="cart-total">0</span></div>
+      <button id="confirm-order-btn" class="confirm-order-btn">Place Order</button>
+    </div>
+  </div>
+</section>
+
+<main class="page-main">
+<section class="menu-hero">
+  <div>
+    <span class="trending-label">&mdash; FRESHLY PREPARED &mdash;</span>
+    <h1>Order BeanByte Favorites</h1>
+    <p>Choose your drink, review your cart, and place a pickup or dine-in order directly from the menu.</p>
+  </div>
+  <button class="open-cart-cta" type="button">Review Cart</button>
+</section>
+
+<section class="featured menu-page-section">
+  <div class="section-header">
+    <div class="header-titles">
+      <span class="trending-label">&mdash; OUR MENU &mdash;</span>
+      <h2>Choose Your Brew</h2>
+    </div>
+  </div>
+
+  <div class="card-container">
+    <div class="card" data-id="cappuccino" data-price="180">
+      <img src="cappuccino.jpeg" alt="Cappuccino">
+      <h3>Cappuccino</h3>
+      <p class="menu-description">Espresso, steamed milk, and a smooth foam finish.</p>
+      <p class="price">&#8377;180</p>
+      <button aria-label="Add Cappuccino to cart">+</button>
+    </div>
+
+    <div class="card" data-id="mocha" data-price="250">
+      <img src="Mocha.png" alt="Mocha">
+      <h3>Mocha</h3>
+      <p class="menu-description">Chocolate-rich espresso with creamy steamed milk.</p>
+      <p class="price">&#8377;250</p>
+      <button aria-label="Add Mocha to cart">+</button>
+    </div>
+
+    <div class="card" data-id="caramel_macchiato" data-price="240">
+      <img src="Caramel Macchiato.png" alt="Caramel Macchiato">
+      <h3>Caramel Macchiato</h3>
+      <p class="menu-description">Layered espresso, vanilla milk, and caramel drizzle.</p>
+      <p class="price">&#8377;240</p>
+      <button aria-label="Add Caramel Macchiato to cart">+</button>
+    </div>
+
+    <div class="card" data-id="frappuccino" data-price="260">
+      <img src="Frappuccino.jpeg" alt="Frappuccino">
+      <h3>Frappuccino</h3>
+      <p class="menu-description">Blended cold coffee with a velvety cafe-style finish.</p>
+      <p class="price">&#8377;260</p>
+      <button aria-label="Add Frappuccino to cart">+</button>
+    </div>
+
+    <div class="card" data-id="iced_latte" data-price="169">
+      <img src="Iced latte.png" alt="Iced Latte">
+      <h3>Iced Latte</h3>
+      <p class="menu-description">Chilled espresso and milk over ice for a clean sip.</p>
+      <p class="price">&#8377;169</p>
+      <button aria-label="Add Iced Latte to cart">+</button>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-box">
+            <div class="footer-logo">
+                <img src="cup.png" alt="BeanByte Logo">
+                <h2>BeanByte</h2>
+            </div>
+            <p>Brewing happiness one cup at a time. Fresh coffee, cozy vibes, and unforgettable moments.</p>
+        </div>
+        <div class="footer-box">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+        <div class="footer-box">
+            <h3>Opening Hours</h3>
+            <p>Mon - Fri: 8:00 AM - 10:00 PM</p>
+            <p>Sat - Sun: 9:00 AM - 11:00 PM</p>
+        </div>
+        <div class="footer-box">
+            <h3>Contact</h3>
+            <p><i class="fa-solid fa-location-dot"></i> Indore, Madhya Pradesh</p>
+            <p><i class="fa-solid fa-phone"></i> +91 98765 43210</p>
+            <p><i class="fa-solid fa-envelope"></i> info@beanbyte.com</p>
+        </div>
+    </div>
+    <div class="social-icons">
+        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#"><i class="fa-brands fa-facebook"></i></a>
+        <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2026 BeanByte. All Rights Reserved.</p>
+    </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

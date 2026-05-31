@@ -31,34 +31,59 @@
         <!-- Navigation Links -->
         <ul class="nav-links">
 
-            <li><a href="#home">Home</a></li>
-            <li><a href="#">Menu</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="menu.html">Menu</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
             
             </ul>
             <ul class="nav-actions">
-            <li>
-                <a href="#search">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </a>
-            </li>
             
 
             <!-- Cart Icon -->
             <li>
-                <a href="#cart">
+                <a href="#cart" id="cart-button">
                     <i class="fa-solid fa-cart-shopping"></i>
                      <span id="cart-count">0</span>
                 </a>
             </li>
-            <li><a href="#"class="login-btn">Login</a></li>
-            <li><a href="#">Order Now</a></li>
+            <li><a href="#" id="place-order-btn">Order Now</a></li>
 
         </ul>
 
     </nav>
 </header>
+
+<section class="cart-panel" id="cart-panel">
+  <div class="cart-panel-content">
+    <button class="close-cart-btn" id="close-cart-btn">&times;</button>
+    <h2>Your Cart</h2>
+    <div id="cart-items" class="cart-items"></div>
+    <form class="checkout-form" id="checkout-form">
+      <div class="checkout-grid">
+        <label>
+          Name
+          <input type="text" id="customer-name" placeholder="Your name" required>
+        </label>
+        <label>
+          Phone
+          <input type="tel" id="customer-phone" placeholder="+91 98765 43210" required>
+        </label>
+      </div>
+      <label>
+        Order type
+        <select id="fulfillment">
+          <option value="pickup">Pickup</option>
+          <option value="dine-in">Dine-in</option>
+        </select>
+      </label>
+    </form>
+    <div class="cart-footer">
+      <div class="cart-summary">Total: &#8377;<span id="cart-total">0</span></div>
+      <button id="confirm-order-btn" class="confirm-order-btn">Place Order</button>
+    </div>
+  </div>
+</section>
 
 <!-- HERO SECTION -->
 <section class="hero" id="home">
@@ -73,7 +98,7 @@
 
         <p>
             At BeanByte, we blend perfection with passion <br>
-            to give you moments worth siping.
+            to give you moments worth sipping.
         </p>
 
         <div class="hero-buttons">
@@ -99,7 +124,7 @@
     </div>
 
     <!-- Right-Aligned View Menu Button -->
-    <a href="#" class="view-menu-link">
+    <a href="menu.html" class="view-menu-link">
   View Full Menu 
   <span class="arrow-btn">
     <i class="fa-solid fa-chevron-right"></i>
@@ -110,38 +135,38 @@
   <!-- Your Existing Card Container -->
   <div class="card-container">
 
-    <div class="card">
+    <div class="card" data-id="cappuccino" data-price="180">
       <img src="cappuccino.jpeg" alt="Cappuccino">
       <h3>Cappuccino</h3>
-      <p class="price">₹180</p>
+      <p class="price">&#8377;180</p>
       <button>+</button>
     </div>
 
-    <div class="card">
+    <div class="card" data-id="mocha" data-price="250">
       <img src="Mocha.png" alt="Mocha">
       <h3>Mocha</h3>
-      <p class="price">₹250</p>
+      <p class="price">&#8377;250</p>
       <button>+</button>
     </div>
 
-    <div class="card">
+    <div class="card" data-id="caramel_macchiato" data-price="240">
       <img src="Caramel Macchiato.png" alt="Caramel Macchiato">
       <h3>Caramel Macchiato</h3>
-      <p class="price">₹240</p>
+      <p class="price">&#8377;240</p>
       <button>+</button>
     </div>
 
-    <div class="card">
+    <div class="card" data-id="frappuccino" data-price="260">
       <img src="Frappuccino.jpeg" alt="Frappuccino">
       <h3>Frappuccino</h3>
-      <p class="price">₹260</p>
+      <p class="price">&#8377;260</p>
       <button>+</button>
     </div>
 
-    <div class="card">
+    <div class="card" data-id="iced_latte" data-price="169">
       <img src="Iced latte.png" alt="Filter Coffee">
       <h3>Iced Latte</h3>
-      <p class="price">₹169</p>
+      <p class="price">&#8377;169</p>
       <button>+</button>
     </div>
 
@@ -303,11 +328,11 @@
         <div class="footer-box">
             <h3>Quick Links</h3>
             <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#">Menu</a></li>
-                <li><a href="#about">About Us</a></li>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="about.html">About Us</a></li>
       
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="contact.html">Contact</a></li>
             </ul>
         </div>
 
@@ -349,10 +374,32 @@
 
     <!-- Copyright -->
     <div class="footer-bottom">
-        <p>© 2026 BeanByte. All Rights Reserved.</p>
+        <p>&copy; 2026 BeanByte. All Rights Reserved.</p>
     </div>
 
 </footer>
+
+<!-- Bill Modal -->
+<div id="bill-modal" class="bill-modal">
+  <div class="bill-content" id="bill-content">
+      <h2>BeanByte Receipt</h2>
+      <hr>
+      <p><strong>Order ID:</strong> #<span id="bill-order-id"></span></p>
+      <p><strong>Customer:</strong> <span id="bill-customer-name"></span></p>
+      <p><strong>Phone:</strong> <span id="bill-customer-phone"></span></p>
+      <p><strong>Type:</strong> <span id="bill-fulfillment" style="text-transform: capitalize;"></span></p>
+      <hr>
+      <div id="bill-items">
+          <!-- Items dynamically injected here -->
+      </div>
+      <hr>
+      <h3>Total: &#8377;<span id="bill-total"></span></h3>
+      <div class="bill-actions no-print">
+          <button onclick="window.print()">Print Bill</button>
+          <button id="close-bill-btn">Close</button>
+      </div>
+  </div>
+</div>
 
 <script src="script.js"></script>
 </body>
