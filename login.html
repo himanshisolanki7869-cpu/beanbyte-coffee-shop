@@ -6,22 +6,161 @@
     <title>BeanByte Login</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        body { display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #F6F0EA; padding: 20px; }
-        .login-card { background: white; padding: 36px; border-radius: 8px; box-shadow: 0 30px 60px rgba(0,0,0,0.12); width: min(420px, 100%); }
-        .login-card h1 { margin-bottom: 24px; font-size: 30px; color: #3b2417; }
-        .login-card label { display: block; margin-bottom: 8px; font-weight: 600; color: #5f4a3c; }
-        .login-card input { width: 100%; padding: 14px 16px; margin-bottom: 18px; border: 1px solid #ddd; border-radius: 8px; }
-        .login-card button { width: 100%; border: none; background: #3b2417; color: white; padding: 14px 16px; border-radius: 8px; font-size: 16px; cursor: pointer; }
-        .login-card button:hover { background: #5a341f; }
-        .message { margin-top: 16px; color: #a35a2a; min-height: 24px; }
-        .secondary-actions { display: flex; justify-content: space-between; gap: 16px; margin-top: 18px; flex-wrap: wrap; }
-        .text-link, .back-link { color: #3b2417; text-decoration: none; background: none; border: 0; padding: 0; width: auto; font: inherit; cursor: pointer; }
-        .login-card .text-link:hover { background: none; text-decoration: underline; }
-        .hidden { display: none; }
-        .hint { color: #6f5a4c; font-size: 14px; line-height: 1.5; margin: -8px 0 16px; }
-        .tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 20px; }
-        .login-card .tab-btn { background: #f6f0ea; color: #3b2417; border: 1px solid #eadfd5; }
-        .login-card .tab-btn.active { background: #3b2417; color: white; }
+        /* Modern Font aur Reset */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body { 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+            background: linear-gradient(135deg, #FDFBF7 0%, #EADFD5 100%); /* Soft warm premium gradient */
+            padding: 20px; 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        /* Sleek Symmetrical Minimal Card */
+        .login-card { 
+            background: #ffffff; 
+            padding: 40px; 
+            border-radius: 16px; /* Smooth rounded corners */
+            box-shadow: 0 20px 50px rgba(95, 74, 60, 0.08); /* Soft elegant shadow */
+            width: min(400px, 100%); 
+            transition: all 0.3s ease;
+        }
+        
+        /* Minimal Logo Text / Header */
+        .login-card h1 { 
+            margin-bottom: 28px; 
+            font-size: 28px; 
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: #3b2417; 
+            text-align: center; 
+        }
+
+        /* Clean Functional Tabs */
+        .tabs { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 10px; 
+            margin-bottom: 28px; 
+            background: #f8f5f2;
+            padding: 4px;
+            border-radius: 10px;
+        }
+        .login-card .tab-btn { 
+            background: transparent; 
+            color: #7c6250; 
+            border: none;
+            padding: 10px; 
+            font-size: 14px; 
+            font-weight: 600;
+            border-radius: 8px; 
+            cursor: pointer; 
+            transition: all 0.2s ease;
+        }
+        .login-card .tab-btn.active { 
+            background: #ffffff; 
+            color: #3b2417; 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        /* Form Layout & Labels */
+        .login-card label { 
+            display: block; 
+            margin-bottom: 6px; 
+            font-weight: 600; 
+            font-size: 13px;
+            letter-spacing: 0.2px;
+            color: #5f4a3c; 
+        }
+        
+        /* Sleek Modern Inputs */
+        .login-card input { 
+            width: 100%; 
+            padding: 14px 16px; 
+            margin-bottom: 20px; 
+            border: 1px solid #e4ded9; 
+            background: #faf9f7;
+            border-radius: 10px; 
+            font-size: 14px;
+            color: #3b2417;
+            transition: all 0.2s ease;
+        }
+        .login-card input::placeholder {
+            color: #b0a49c;
+        }
+        .login-card input:focus {
+            outline: none;
+            border-color: #3b2417;
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(59, 36, 23, 0.05); /* Premium focus ring */
+        }
+
+        /* Spacing for button alignment */
+        .login-card form input:last-of-type {
+            margin-bottom: 28px;
+        }
+        
+        /* Premium Solid Button */
+        .login-card button[type="submit"] { 
+            width: 100%; 
+            border: none; 
+            background: #3b2417; 
+            color: #ffffff; 
+            padding: 15px 16px; 
+            border-radius: 10px; 
+            font-size: 15px; 
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            cursor: pointer; 
+            transition: background 0.2s ease, transform 0.1s ease;
+        }
+        .login-card button[type="submit"]:hover { 
+            background: #27170e; 
+        }
+        .login-card button[type="submit"]:active { 
+            transform: scale(0.99); 
+        }
+        
+        /* Muted Message Alert */
+        .message { margin-top: 14px; color: #a35a2a; min-height: 24px; font-size: 13px; text-align: center; font-weight: 500; }
+        .hint { color: #8a7566; font-size: 13px; line-height: 1.5; margin: -8px 0 20px; text-align: center; }
+        
+        /* Clean Minimal Links Footer */
+        .secondary-actions { 
+            display: flex; 
+            justify-content: space-between; 
+            gap: 16px; 
+            margin-top: 16px; 
+            padding-top: 20px;
+            align-items: center; 
+            border-top: 1px solid #f4efeb; 
+        }
+        
+        /* Text Links Overrides */
+        .login-card .text-link, .back-link { 
+            color: #7c6250; 
+            text-decoration: none; 
+            background: none !important; 
+            border: 0; 
+            padding: 0 !important; 
+            width: auto !important; 
+            font: inherit; 
+            cursor: pointer; 
+            font-size: 13px;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+        .login-card .text-link:hover, .back-link:hover { 
+            background: none !important; 
+            color: #3b2417;
+            text-decoration: underline;
+        }
+        
+        .hidden { display: none !important; }
     </style>
 </head>
 <body>
@@ -31,6 +170,7 @@
             <button type="button" class="tab-btn active" id="show-login">Login</button>
             <button type="button" class="tab-btn" id="show-signup">Sign Up</button>
         </div>
+        
         <form id="login-form">
             <label for="username">Username</label>
             <input type="text" id="username" name="username" placeholder="admin or admin@beanbyte.com" required>
@@ -73,6 +213,7 @@
         </form>
 
         <div class="message" id="message"></div>
+        
         <div class="secondary-actions">
             <button type="button" class="text-link" id="forgot-link">Forgot password?</button>
             <button type="button" class="text-link hidden" id="login-link">Back to login</button>
@@ -96,7 +237,7 @@
         const authTabs = document.getElementById('auth-tabs');
 
         function showMessage(text, type = 'info') {
-            message.style.color = type === 'error' ? '#e74c3c' : '#2b1b14';
+            message.style.color = type === 'error' ? '#e74c3c' : '#a35a2a';
             message.innerHTML = text;
         }
 
